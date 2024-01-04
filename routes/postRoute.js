@@ -1,27 +1,15 @@
 
 const router = require('express').Router();
+const postController = require('../controllers/postController')
 
-router.get('/', (req, res) => {
-    res.status(200).json({
-        status: true,
-        msg: "All posts"
-    });
-});
+router.get('/', postController.all);
 
-router.post('/', (req, res) => {
-    res.json("all  posts");
-});
+router.post('/', postController.store);
 
 router.route('/:id')
-    .get((req, res) => {
-        res.json({ msg: "Single post route" })
-    })
-    .patch((req, res) => {
-        res.json({ msg: "Post updated" })
-    })
-    .delete((req, res) => {
-        res.json({ msg: "Post deleted" })
-    });
+    .get(postController.show)
+    .patch(postController.update)
+    .delete(postController.destroy);
 
 
 module.exports = router;
